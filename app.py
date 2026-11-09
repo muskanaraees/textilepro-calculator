@@ -6,14 +6,37 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("🧵 TextilePro Calculator")
-st.write("A Complete Textile Engineering Calculator")
+st.markdown("""
+<style>
+.stApp {
+    background-color: #F3F7FA;
+}
+h1 {color: #123B5D;}
+h2, h3 {color: #176B87;}
+div.stButton > button {
+    background-color: #176B87;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    padding: 8px 20px;
+}
+</style>
+""", unsafe_allow_html=True)
 
-st.sidebar.title("Select Calculator")
+st.title("🧵 TextilePro Calculator")
+st.subheader("Complete Textile Engineering Calculator")
+
+st.markdown("""
+### Welcome to TextilePro!
+A simple calculation platform for Textile Engineering students.
+""")
+
+st.sidebar.title("⚙️ Calculator Menu")
 
 calculator = st.sidebar.selectbox(
-    "Choose a calculation",
+    "Select Calculator",
     [
+        "Home",
         "Cotton Waste Calculator",
         "Yarn Count Calculator",
         "Fabric GSM Calculator",
@@ -22,70 +45,107 @@ calculator = st.sidebar.selectbox(
     ]
 )
 
-if calculator == "Cotton Waste Calculator":
-    st.header("Cotton Waste Calculator")
+if calculator == "Home":
+    st.header("Welcome to TextilePro Calculator")
+
+    st.write("Select any calculator from the sidebar.")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.info("☁️ Cotton Waste Calculator")
+        st.info("🧶 Yarn Count Calculator")
+        st.info("🏭 Production Calculator")
+
+    with col2:
+        st.info("🧵 Fabric GSM Calculator")
+        st.info("⚙️ Machine Efficiency Calculator")
+
+elif calculator == "Cotton Waste Calculator":
+    st.header("☁️ Cotton Waste Calculator")
 
     input_weight = st.number_input(
-        "Enter Input Cotton Weight (kg)", min_value=0.0
+        "Input Cotton Weight (kg)", min_value=0.0
     )
     waste_weight = st.number_input(
-        "Enter Waste Weight (kg)", min_value=0.0
+        "Waste Weight (kg)", min_value=0.0
     )
 
     if st.button("Calculate Waste"):
         if input_weight > 0 and waste_weight <= input_weight:
-            waste_percent = (waste_weight / input_weight) * 100
-            st.success(f"Cotton Waste: {waste_percent:.2f}%")
+            result = waste_weight / input_weight * 100
+            st.success(f"Waste Percentage: {result:.2f}%")
         else:
-            st.error("Please enter valid weights.")
+            st.error("Enter valid weights.")
+
+    st.caption("Formula: (Waste Weight / Input Weight) × 100")
 
 elif calculator == "Yarn Count Calculator":
-    st.header("Yarn Count Calculator")
-    weight = st.number_input("Enter Yarn Weight (grams)", min_value=0.0)
-    length = st.number_input("Enter Yarn Length (meters)", min_value=0.0)
+    st.header("🧶 Yarn Count Calculator")
 
-    if st.button("Calculate Yarn Count"):
+    weight = st.number_input("Yarn Weight (grams)", min_value=0.0)
+    length = st.number_input("Yarn Length (meters)", min_value=0.0)
+
+    if st.button("Calculate Tex"):
         if weight > 0 and length > 0:
-            tex = (weight * 1000) / length
-            st.success(f"Yarn Count: {tex:.2f} Tex")
+            result = weight * 1000 / length
+            st.success(f"Yarn Count: {result:.2f} Tex")
         else:
             st.error("Enter valid values.")
 
+    st.caption("Formula: Tex = Weight (g) × 1000 / Length (m)")
+
 elif calculator == "Fabric GSM Calculator":
-    st.header("Fabric GSM Calculator")
+    st.header("🧵 Fabric GSM Calculator")
+
     weight = st.number_input("Fabric Weight (grams)", min_value=0.0)
     area = st.number_input("Fabric Area (square meters)", min_value=0.0)
 
     if st.button("Calculate GSM"):
         if weight > 0 and area > 0:
-            gsm = weight / area
-            st.success(f"Fabric GSM: {gsm:.2f} g/m²")
+            result = weight / area
+            st.success(f"Fabric GSM: {result:.2f} g/m²")
         else:
             st.error("Enter valid values.")
 
+    st.caption("Formula: GSM = Weight / Area")
+
 elif calculator == "Production Calculator":
-    st.header("Production Calculator")
-    quantity = st.number_input("Production (kg)", min_value=0.0)
+    st.header("🏭 Production Calculator")
+
+    quantity = st.number_input("Total Production (kg)", min_value=0.0)
     hours = st.number_input("Working Hours", min_value=0.0)
 
     if st.button("Calculate Production"):
         if quantity > 0 and hours > 0:
-            production = quantity / hours
-            st.success(f"Production Rate: {production:.2f} kg/hour")
+            result = quantity / hours
+            st.success(f"Production Rate: {result:.2f} kg/hour")
         else:
             st.error("Enter valid values.")
 
+    st.caption("Formula: Production Rate = Production / Hours")
+
 elif calculator == "Machine Efficiency Calculator":
-    st.header("Machine Efficiency Calculator")
+    st.header("⚙️ Machine Efficiency Calculator")
+
     actual = st.number_input("Actual Production", min_value=0.0)
     theoretical = st.number_input("Theoretical Production", min_value=0.0)
 
     if st.button("Calculate Efficiency"):
         if theoretical > 0 and actual <= theoretical:
-            efficiency = (actual / theoretical) * 100
-            st.success(f"Machine Efficiency: {efficiency:.2f}%")
+            result = actual / theoretical * 100
+            st.success(f"Machine Efficiency: {result:.2f}%")
         else:
-            st.error("Please enter valid values.")
+            st.error("Enter valid production values.")
+
+    st.caption("Formula: (Actual Production / Theoretical Production) × 100")
 
 st.divider()
-st.caption("TextilePro Calculator | Textile Engineering Project")
+
+st.markdown("""
+<div style="text-align:center; padding:15px;">
+    <h4 style="color:#123B5D;">TextilePro Calculator</h4>
+    <p>Developed by <b>Muskan Abdul Raees</b></p>
+    <p>Textile Engineering Project</p>
+</div>
+""", unsafe_allow_html=True)
