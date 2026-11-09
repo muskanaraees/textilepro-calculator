@@ -6,13 +6,51 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("🧵 TextilePro Calculator")
-st.write("A Complete Textile Engineering Calculation Platform")
+# Professional Design
+st.markdown("""
+<style>
+.stApp {
+    background-color: #F5F8FA;
+}
+h1, h2, h3 {
+    color: #12304A;
+}
+section[data-testid="stSidebar"] {
+    background-color: #12304A;
+}
+section[data-testid="stSidebar"] * {
+    color: white;
+}
+.stButton > button {
+    background-color: #008C95;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+}
+.stButton > button:hover {
+    background-color: #006B73;
+    color: white;
+}
+div[data-testid="stMetric"] {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+}
+</style>
+""", unsafe_allow_html=True)
 
-st.sidebar.title("TextilePro Menu")
+# Header
+st.title("🧵 TextilePro Calculator")
+st.caption("Your Textile Engineering Calculation Platform")
+st.markdown("---")
+
+# Sidebar
+st.sidebar.title("🧵 TextilePro")
+st.sidebar.caption("Engineering Tools")
 
 calculator = st.sidebar.selectbox(
-    "Select a Section",
+    "Select Calculator",
     [
         "Home",
         "Cotton Waste Calculator",
@@ -24,6 +62,7 @@ calculator = st.sidebar.selectbox(
     ]
 )
 
+# Home
 if calculator == "Home":
     st.header("Welcome to TextilePro Calculator")
 
@@ -35,51 +74,62 @@ if calculator == "Home":
     st.write(
         "This application is designed to help "
         "Textile Engineering students perform basic "
-        "textile calculations easily."
+        "textile calculations easily and accurately."
     )
 
+    st.markdown("---")
     st.subheader("Available Calculators")
 
-    st.write("1. Cotton Waste Calculator")
-    st.write("2. Yarn Count Calculator")
-    st.write("3. Yarn Count Conversion")
-    st.write("4. Fabric GSM Calculator")
-    st.write("5. Production Calculator")
-    st.write("6. Machine Efficiency Calculator")
+    col1, col2 = st.columns(2)
 
+    with col1:
+        st.info("🧶 Cotton Waste Calculator")
+        st.info("📏 Yarn Count Calculator")
+        st.info("🔄 Yarn Count Conversion")
+
+    with col2:
+        st.info("🧵 Fabric GSM Calculator")
+        st.info("🏭 Production Calculator")
+        st.info("⚙️ Machine Efficiency Calculator")
+
+    st.markdown("---")
+    st.write("Select a calculator from the sidebar to begin.")
+
+# Cotton Waste
 elif calculator == "Cotton Waste Calculator":
     st.header("Cotton Waste Calculator")
 
-    total_cotton = st.number_input(
-        "Enter total cotton weight (kg)",
+    total = st.number_input(
+        "Total Cotton Weight (kg)",
         min_value=0.0,
         value=100.0
     )
 
     waste = st.number_input(
-        "Enter waste weight (kg)",
+        "Waste Weight (kg)",
         min_value=0.0,
         value=5.0
     )
 
     if st.button("Calculate Waste"):
-        if total_cotton > 0 and waste <= total_cotton:
-            percentage = (waste / total_cotton) * 100
-            st.success(f"Cotton Waste: {percentage:.2f}%")
+        if total > 0 and waste <= total:
+            result = (waste / total) * 100
+            st.success(f"Cotton Waste: {result:.2f}%")
         else:
-            st.error("Enter valid weights.")
+            st.error("Please enter valid weights.")
 
+# Yarn Count
 elif calculator == "Yarn Count Calculator":
     st.header("Yarn Count Calculator")
 
     weight = st.number_input(
-        "Enter yarn weight (grams)",
+        "Yarn Weight (grams)",
         min_value=0.01,
         value=2.0
     )
 
     length = st.number_input(
-        "Enter yarn length (meters)",
+        "Yarn Length (meters)",
         min_value=0.01,
         value=1000.0
     )
@@ -88,17 +138,18 @@ elif calculator == "Yarn Count Calculator":
         tex = (weight * 1000) / length
         st.success(f"Yarn Count: {tex:.2f} Tex")
 
+# Yarn Count Conversion
 elif calculator == "Yarn Count Conversion":
     st.header("Yarn Count Conversion")
 
     count = st.number_input(
-        "Enter yarn count",
+        "Enter Yarn Count",
         min_value=0.01,
         value=20.0
     )
 
     system = st.selectbox(
-        "Select count system",
+        "Select Count System",
         ["Tex", "Denier", "Ne", "Nm"]
     )
 
@@ -123,36 +174,38 @@ elif calculator == "Yarn Count Conversion":
             st.write(f"Denier: {9000 / count:.2f}")
             st.write(f"Ne: {count / 1.693:.2f}")
 
+# Fabric GSM
 elif calculator == "Fabric GSM Calculator":
     st.header("🧵 Fabric GSM Calculator")
 
-    fabric_weight = st.number_input(
-        "Enter fabric weight (grams)",
+    weight = st.number_input(
+        "Fabric Weight (grams)",
         min_value=0.01,
         value=150.0
     )
 
     area = st.number_input(
-        "Enter fabric area (square meters)",
+        "Fabric Area (square meters)",
         min_value=0.01,
         value=1.0
     )
 
     if st.button("Calculate GSM"):
-        gsm = fabric_weight / area
+        gsm = weight / area
         st.success(f"Fabric GSM: {gsm:.2f} g/m²")
 
+# Production
 elif calculator == "Production Calculator":
     st.header("Production Calculator")
 
     production = st.number_input(
-        "Enter production (kg)",
+        "Production (kg)",
         min_value=0.0,
         value=100.0
     )
 
     hours = st.number_input(
-        "Enter working hours",
+        "Working Hours",
         min_value=0.01,
         value=2.0
     )
@@ -161,17 +214,18 @@ elif calculator == "Production Calculator":
         rate = production / hours
         st.success(f"Production Rate: {rate:.2f} kg/hour")
 
+# Machine Efficiency
 elif calculator == "Machine Efficiency Calculator":
     st.header("Machine Efficiency Calculator")
 
     actual = st.number_input(
-        "Enter actual production",
+        "Actual Production",
         min_value=0.0,
         value=80.0
     )
 
     theoretical = st.number_input(
-        "Enter theoretical production",
+        "Theoretical Production",
         min_value=0.01,
         value=100.0
     )
@@ -182,9 +236,11 @@ elif calculator == "Machine Efficiency Calculator":
             st.success(f"Machine Efficiency: {efficiency:.2f}%")
         else:
             st.warning(
-                "Actual production is greater than theoretical production. "
+                "Actual production exceeds theoretical production. "
                 "Please check your values."
             )
 
+# Footer
 st.sidebar.markdown("---")
 st.sidebar.caption("Developed by Muskan Abdul Raees")
+st.sidebar.caption("Textile Engineering Project")
