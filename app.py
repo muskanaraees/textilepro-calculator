@@ -46,11 +46,9 @@ calculator = st.sidebar.selectbox(
 )
 
 if calculator == "Home":
-    st.header("Welcome to TextilePro Calculator")
+    
 
-    st.write(
-        "A simple calculation platform for Textile Engineering students."
-    )
+    
 
     st.divider()
 
