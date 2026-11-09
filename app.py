@@ -136,8 +136,8 @@ elif calculator == "Yarn Count Calculator":
                 st.write(f"Denier: {9000 / count:.2f}")
                 st.write(f"Ne: {count / 1.693:.2f}")
 
-elif calculator == "Fabric GSM Calculator":
-    st.header("🧵 Fabric GSM Calculator")
+    elif calculator == "Fabric GSM Calculator":
+        st.header("🧵 Fabric GSM Calculator")
 
     weight = st.number_input("Fabric Weight (grams)", min_value=0.0)
     area = st.number_input("Fabric Area (square meters)", min_value=0.0)
