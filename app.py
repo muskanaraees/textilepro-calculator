@@ -39,6 +39,7 @@ calculator = st.sidebar.selectbox(
         "Home",
         "Cotton Waste Calculator",
         "Yarn Count Calculator",
+        "Yarn Count Conversion",
         "Fabric GSM Calculator",
         "Production Calculator",
         "Machine Efficiency Calculator"
@@ -111,6 +112,29 @@ elif calculator == "Yarn Count Calculator":
             st.error("Enter valid values.")
 
     st.caption("Formula: Tex = Weight (g) × 1000 / Length (m)")
+    elif calculator == "Yarn Count Conversion":
+        st.subheader("Yarn Count Conversion")
+
+        count = st.number_input("Enter yarn count:", min_value=0.01, value=20.0)
+        system = st.selectbox("Select count system:", ["Tex", "Denier", "Ne", "Nm"])
+
+        if st.button("Convert"):
+            if system == "Tex":
+                st.write(f"Denier: {count * 9:.2f}")
+                st.write(f"Ne: {590.5 / count:.2f}")
+                st.write(f"Nm: {1000 / count:.2f}")
+            elif system == "Denier":
+                st.write(f"Tex: {count / 9:.2f}")
+                st.write(f"Ne: {5315 / count:.2f}")
+                st.write(f"Nm: {9000 / count:.2f}")
+            elif system == "Ne":
+                st.write(f"Tex: {590.5 / count:.2f}")
+                st.write(f"Denier: {5315 / count:.2f}")
+                st.write(f"Nm: {count * 1.693:.2f}")
+            else:
+                st.write(f"Tex: {1000 / count:.2f}")
+                st.write(f"Denier: {9000 / count:.2f}")
+                st.write(f"Ne: {count / 1.693:.2f}")
 
 elif calculator == "Fabric GSM Calculator":
     st.header("🧵 Fabric GSM Calculator")
